@@ -37,7 +37,7 @@ jobs:
   build:
     name: ${{ matrix.build }}
     if: github.event_name != 'pull_request' || startsWith(github.head_ref, 'release-')
-    runs-on: ${{ matrix.build == 'linux-x64' && (github.event_name == 'pull_request' && 'aux-pub-16cpu-amd64' || 'aux-pub-trusted-16cpu-amd64') || matrix.build == 'linux-arm64' && (github.event_name == 'pull_request' && 'aux-pub-16cpu-arm64' || 'aux-pub-trusted-16cpu-arm64') || matrix.os }}
+    runs-on: ${{ matrix.build == 'linux-x64' && 'tenki-standard-large-plus-16c-32g' || matrix.build == 'linux-arm64' && (github.event_name == 'pull_request' && 'aux-pub-16cpu-arm64' || 'aux-pub-trusted-16cpu-arm64') || matrix.os }}
     needs: setup
     strategy:
       fail-fast: false
@@ -62,7 +62,7 @@ jobs:
             enable_v8: true
             enable_napi_v8: true
           - build: macos-arm
-            os: depot-macos-14
+            os: tenki-macos-15-large
             target: aarch64-apple-darwin
             artifact_name: "wasmer-darwin-arm64"
             build_wasm: false
@@ -259,7 +259,7 @@ jobs:
   windows_gnu:
     name: windows-gnu
     if: github.event_name != 'pull_request' || startsWith(github.head_ref, 'release-')
-    runs-on: ${{ github.event_name == 'pull_request' && 'aux-pub-16cpu-amd64' || 'aux-pub-trusted-16cpu-amd64' }}
+    runs-on: tenki-standard-large-plus-16c-32g
     steps:
       - uses: actions/checkout@v6
         with:
@@ -327,7 +327,7 @@ jobs:
   linux-riscv64:
     name: linux-riscv64
     if: github.event_name != 'pull_request' || startsWith(github.head_ref, 'release-')
-    runs-on: ${{ github.event_name == 'pull_request' && 'aux-pub-16cpu-amd64' || 'aux-pub-trusted-16cpu-amd64' }}
+    runs-on: tenki-standard-large-plus-16c-32g
     steps:
       - uses: actions/checkout@v6
         with:
